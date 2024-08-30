@@ -5,7 +5,9 @@ import { getUserInfo } from "../api/getUserInfo"
 import { UserInfo } from "../model/userInfo"
 
 export function SessionProvider({ children }: { children?: React.ReactNode }) {
-  const [token, setToken] = useLocalStorageSync(config.tokenStorageKey)
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem(config.tokenStorageKey),
+  )
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
 
   const authorize = useCallback(
@@ -17,8 +19,16 @@ export function SessionProvider({ children }: { children?: React.ReactNode }) {
 
   const logout = useCallback(() => setToken(null), [setToken])
 
+  const isAuthenticated = token !== null
+
   useEffect(() => {
-    getUserInfo().then(setUserInfo).catch(logout)
+    if (token) {
+      localStorage.setItem(config.tokenStorageKey, token)
+      getUserInfo().then(setUserInfo).catch(logout)
+    } else {
+      localStorage.removeItem(config.tokenStorageKey)
+      setUserInfo(null)
+    }
   }, [token, logout])
 
   return (
@@ -27,6 +37,7 @@ export function SessionProvider({ children }: { children?: React.ReactNode }) {
         authorize,
         logout,
         userInfo,
+        isAuthenticated,
       }}
     >
       {children}

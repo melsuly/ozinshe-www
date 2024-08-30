@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from "react"
+import { useCallback, useSyncExternalStore } from "react"
 
 type LocalStorageValue = string | null
 
@@ -20,10 +20,18 @@ export function useLocalStorageSync(
     return () => window.removeEventListener("storage", handleStorageChange)
   }
   const value = useSyncExternalStore(subscribe, getSnapshot)
-  const setValue = (newValue: LocalStorageValue) =>
-    newValue === null
-      ? localStorage.removeItem(key)
-      : localStorage.setItem(key, newValue)
+  const setValue = useCallback(
+    (newValue: LocalStorageValue) => {
+      if (newValue === null) {
+        localStorage.removeItem(key)
+      } else {
+        localStorage.setItem(key, newValue)
+      }
+
+      window.dispatchEvent(new StorageEvent("storage", { key }))
+    },
+    [key],
+  )
 
   return [value, setValue]
 }

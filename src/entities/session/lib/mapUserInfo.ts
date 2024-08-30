@@ -6,5 +6,6 @@ export function mapUserInfo(dto: UserInfoDto): UserInfo {
     id: dto.id,
     name: dto.name,
     email: dto.email,
+    avatarUrl: `https://i.pravatar.cc/150?u=${dto.email}`,
   }
 }
