@@ -1,4 +1,4 @@
-import { config, useLocalStorageSync } from "@/shared/lib"
+import { config } from "@/shared/lib"
 import { SessionContext } from "../model/context"
 import { useCallback, useEffect, useState } from "react"
 import { getUserInfo } from "../api/getUserInfo"

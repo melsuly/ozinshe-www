@@ -1,6 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { MantineProvider, useMantineColorScheme } from "@mantine/core"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { SessionProvider } from "@/entities/session"
 import { RouterProvider } from "react-router-dom"
 import { theme } from "@/shared/ui"
@@ -14,7 +13,6 @@ const queryClient = new QueryClient()
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools />
       <SessionProvider>
         <MantineProvider forceColorScheme="light" theme={theme}>
           <Content />

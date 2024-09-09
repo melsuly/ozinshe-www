@@ -1,14 +1,4 @@
-import {
-  ActionIcon,
-  Button,
-  Group,
-  Image,
-  Popover,
-  Rating,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core"
+import { Group, Image, Stack, Text, Title } from "@mantine/core"
 import { Movie } from "../model/movie"
 import { imageUrl } from "@/shared/api"
 import { Link } from "react-router-dom"
@@ -33,7 +23,7 @@ export function MovieSearchCard({ movie }: { movie: Movie }) {
         }}
       />
 
-      <Stack gap={4} justify='center' align="flex-start" flex={1}>
+      <Stack gap={4} justify="center" align="flex-start" flex={1}>
         <Title td="none" c="dark" size="h5">
           {movie.title}
         </Title>

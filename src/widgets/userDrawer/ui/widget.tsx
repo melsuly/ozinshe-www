@@ -1,5 +1,4 @@
 import { getUser } from "@/entities/genre/api/getUser"
-import { useSession } from "@/entities/session"
 import { useCreateUser } from "@/entities/user"
 import { useUpdatePassword } from "@/entities/user/lib/useUpdatePassword"
 import { useUpdateUser } from "@/entities/user/lib/useUpdateUser"
@@ -9,7 +8,6 @@ import {
   Button,
   Drawer,
   Group,
-  Input,
   PasswordInput,
   Stack,
   Tabs,

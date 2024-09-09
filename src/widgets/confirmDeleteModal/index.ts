@@ -1,1 +1,1 @@
-export { GenreModal } from "./ui/widget"
+export { ConfirmDeleteModal } from "./ui/widget"

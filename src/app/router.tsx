@@ -5,8 +5,6 @@ import { AppLayout } from "./layout"
 import { HomePage } from "@/pages/home"
 import { GenresPage } from "@/pages/genres"
 import { UsersPage } from "@/pages/users"
-import { CreateUserPage } from "@/pages/createUser"
-import { EditUserPage } from "@/pages/editUser"
 import { MovieDetailPage } from "@/pages/movieDetail"
 
 export const router = createBrowserRouter([

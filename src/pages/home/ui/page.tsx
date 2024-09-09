@@ -39,7 +39,6 @@ export function HomePage() {
   const watchLater = useWatchLater()
 
   const [isCreateModalOpened, createModal] = useDisclosure()
-  const [movieIdToEdit, setMovieIdToEdit] = useState<number | null>(null)
 
   return (
     <>
