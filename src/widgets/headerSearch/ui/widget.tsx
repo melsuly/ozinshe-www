@@ -1,11 +1,27 @@
-import { useMovies } from "@/entities/movie"
-import { Divider, Input, Modal, Text } from "@mantine/core"
+import { MovieSearchCard, useMovies } from "@/entities/movie"
+import {
+  Divider,
+  Group,
+  Input,
+  Loader,
+  Modal,
+  Stack,
+  Text,
+} from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
+import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
 
 export function HeaderSearch() {
+  const location = useLocation()
   const [opened, { close, open }] = useDisclosure()
+  const [searchTerm, setSearchTerm] = useState<string>("")
 
-  const movies = useMovies()
+  const movies = useMovies({ searchTerm })
+
+  useEffect(() => {
+    close()
+  }, [location, close])
 
   return (
     <>
@@ -48,6 +64,8 @@ export function HeaderSearch() {
 
       <Modal opened={opened} onClose={close} withCloseButton={false}>
         <Input
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.currentTarget.value)}
           variant="unstyled"
           placeholder="Поиск"
           leftSection={
@@ -68,6 +86,16 @@ export function HeaderSearch() {
           }
         />
         <Divider my={8} />
+        {movies.isLoading && (
+          <Group py="lg" justify="center" mt={32}>
+            <Loader size="sm" />
+          </Group>
+        )}
+        <Stack>
+          {movies.data?.map((movie) => (
+            <MovieSearchCard key={movie.id} movie={movie} />
+          ))}
+        </Stack>
       </Modal>
     </>
   )

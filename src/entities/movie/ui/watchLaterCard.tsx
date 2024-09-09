@@ -1,10 +1,14 @@
 import { ActionIcon, Container, Image, Stack, Text } from "@mantine/core"
 import { Movie } from "../model/movie"
 import { Link } from "react-router-dom"
-import { useHover } from '@mantine/hooks'
+import { useHover } from "@mantine/hooks"
+import { imageUrl } from "@/shared/api"
+import { useUpdateWatchLater } from "../lib/useUpdateWatchLater"
 
 export function MovieWatchLaterCard({ movie }: { movie: Movie }) {
   const { ref, hovered } = useHover()
+
+  const updateWatchLater = useUpdateWatchLater()
 
   return (
     <Stack pos="relative">
@@ -19,11 +23,15 @@ export function MovieWatchLaterCard({ movie }: { movie: Movie }) {
         zIndex={1}
       />
 
-      <Container ref={ref} pos="relative" h={130} style={{ aspectRatio: "16/9" }} p={0}>
+      <Container
+        ref={ref}
+        pos="relative"
+        h={130}
+        style={{ aspectRatio: "16/9" }}
+        p={0}
+      >
         <Image
-          src={
-            "https://avatars.mds.yandex.net/get-ott/200035/2a0000016128ca489a003dd99698011973ca/672x438"
-          }
+          src={imageUrl(movie.posterUrl)}
           alt={movie.title}
           fit="cover"
           style={{ pointerEvents: "none" }}
@@ -41,6 +49,9 @@ export function MovieWatchLaterCard({ movie }: { movie: Movie }) {
           size={40}
           radius="xl"
           color="orange"
+          onClick={() =>
+            updateWatchLater.mutate({ movieId: movie.id, isWatchLater: false })
+          }
         >
           <svg
             fill="none"

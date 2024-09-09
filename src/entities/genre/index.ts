@@ -1,2 +1,6 @@
 export { useGenres } from "./lib/useGenres"
 export { useCreateGenre } from "./lib/useCreateGenre"
+export { useUpdateGenre } from "./lib/useUpdateGenre"
+export { useDeleteGenre } from "./lib/useDeleteGenre"
+export { GenreCard } from "./ui/card"
+export { type Genre } from "./model/genre"

@@ -33,14 +33,6 @@ export const router = createBrowserRouter([
         path: "/users",
         element: <UsersPage />,
       },
-      {
-        path: "/users/create",
-        element: <CreateUserPage />,
-      },
-      {
-        path: "/users/:userId/edit",
-        element: <EditUserPage />,
-      },
     ],
   },
 ])

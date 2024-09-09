@@ -1,29 +1,78 @@
-import { useGenres } from "@/entities/genre"
+import { Genre, GenreCard, useDeleteGenre, useGenres } from "@/entities/genre"
+import { responseError } from "@/shared/api"
 import { Container } from "@/shared/ui"
+import { ConfirmDeleteModal } from "@/widgets/confirmDeleteModal/ui/widget"
 import { GenreModal } from "@/widgets/genreModal"
-import { Button, Group, Modal, TextInput, Title } from "@mantine/core"
+import { NotReleased } from "@/widgets/notReleased"
+import { Button, Group, Stack, Title } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
+import { useState } from "react"
 
 export function GenresPage() {
   const genres = useGenres()
 
-  const [isCreateModalOpened, createModal] = useDisclosure()
+  const [isModalOpened, modal] = useDisclosure()
+  const [isDeleteModalOpened, deleteModal] = useDisclosure()
+  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null)
+
+  const deleteGenre = useDeleteGenre()
 
   return (
     <>
       <Container>
-        <Group align="center" justify="space-between">
-          <Title size="h2" mt={32} mb={24}>
-            Жанры
-          </Title>
+        <Stack>
+          <Group align="center" justify="space-between">
+            <Title size="h2" mt={32} mb={24}>
+              Жанры
+            </Title>
 
-          <Button onClick={createModal.open} color="green" size="md">
-            Добавить
-          </Button>
-        </Group>
+            <Button onClick={modal.open} color="green" size="md">
+              Добавить
+            </Button>
+          </Group>
+
+          <Stack>
+            {deleteGenre.error &&
+              responseError(deleteGenre.error).isNotImplemented && (
+                <NotReleased description="Ожидали получить список жанров, но произошла ошибка" />
+              )}
+
+            {genres.data?.map((genre) => (
+              <GenreCard
+                key={genre.id}
+                title={genre.title}
+                onEdit={() => {
+                  setSelectedGenre(genre)
+                  modal.open()
+                }}
+                onDelete={() => {
+                  setSelectedGenre(genre)
+                  deleteModal.open()
+                }}
+              />
+            ))}
+          </Stack>
+        </Stack>
       </Container>
 
-      <GenreModal opened={isCreateModalOpened} onClose={createModal.close} />
+      <GenreModal
+        opened={isModalOpened}
+        onClose={() => {
+          setSelectedGenre(null)
+          modal.close()
+        }}
+        genre={selectedGenre}
+      />
+
+      <ConfirmDeleteModal
+        opened={isDeleteModalOpened}
+        onClose={deleteModal.close}
+        onConfirm={() => {
+          if (selectedGenre) deleteGenre.mutate({ id: selectedGenre.id })
+          setSelectedGenre(null)
+          deleteModal.close()
+        }}
+      />
     </>
   )
 }

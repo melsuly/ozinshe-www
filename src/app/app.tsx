@@ -1,12 +1,13 @@
-import { SessionProvider } from "@/entities/session"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { MantineProvider, useMantineColorScheme } from "@mantine/core"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import { SessionProvider } from "@/entities/session"
 import { RouterProvider } from "react-router-dom"
+import { theme } from "@/shared/ui"
 import { router } from "./router"
 import { Toaster } from "sonner"
-import { theme } from "@/shared/ui"
 import "@mantine/core/styles.css"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import "@mantine/dates/styles.css"
 
 const queryClient = new QueryClient()
 

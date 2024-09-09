@@ -5,5 +5,6 @@ export function useGenres() {
   return useQuery({
     queryKey: ["genres"],
     queryFn: getGenres,
+    retry: false,
   })
 }
