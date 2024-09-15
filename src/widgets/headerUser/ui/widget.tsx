@@ -83,11 +83,11 @@ export function HeaderUser() {
         </Title>
 
         <Group mb={8} grow mt={16} justify="flex-end">
-          <Button size="md" radius="md" onClick={logout} color="red">
+          <Button size="md" radius="md" onClick={logout} color="var(--mantine-color-primarycolor)" w="100%">
             Выйти
           </Button>
           <Button
-            color="blue"
+            color="var(--mantine-color-gray-9)"
             size="md"
             radius="md"
             onClick={close}

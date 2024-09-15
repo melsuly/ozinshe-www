@@ -59,7 +59,7 @@ export function LoginPage() {
           radius="lg"
           withBorder
         >
-          <Center c="violet">
+          <Center c="black">
             <LogoOzinsheFull height={28} />
           </Center>
 
@@ -90,7 +90,7 @@ export function LoginPage() {
             size="lg"
             radius="md"
             fullWidth
-            color="violet"
+            color="var(--mantine-color-primarycolor)"
             loading={isLoading}
           >
             Войти
