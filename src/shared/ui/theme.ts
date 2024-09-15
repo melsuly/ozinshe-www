@@ -1,11 +1,12 @@
-import { MantineProviderProps } from "@mantine/core"
+import { colorsTuple, MantineProviderProps } from "@mantine/core"
 
 export const theme: MantineProviderProps["theme"] = {
   colors: {
+    primaryColor: colorsTuple("#141414"),
     gray: [
-      "#F9FAFB",
-      "#F3F4F6",
-      "#E5E7EB",
+      "#f7f7f7",
+      "#eaeaea",
+      "#e5ddd9",
       "#D1D5DB",
       "#9CA3AF",
       "#6B7280",
@@ -16,7 +17,7 @@ export const theme: MantineProviderProps["theme"] = {
     ],
   },
 
-  primaryColor: "violet",
+  primaryColor: "primaryColor",
 
   white: "#fff",
   black: "#111827",

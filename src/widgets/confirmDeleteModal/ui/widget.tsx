@@ -24,21 +24,21 @@ export function ConfirmDeleteModal({
     >
       <Group grow mt={32}>
         <Button
+          loading={isLoading}
+          color="var(--mantine-color-primarycolor)"
+          size="md"
+          onClick={handleSubmit}
+        >
+          Удалить
+        </Button>
+        <Button
           disabled={isLoading}
-          color="red"
+          color="var(--mantine-color-gray-9)"
           size="md"
           variant="outline"
           onClick={onClose}
         >
           Отменить
-        </Button>
-        <Button
-          loading={isLoading}
-          color="red"
-          size="md"
-          onClick={handleSubmit}
-        >
-          Удалить
         </Button>
       </Group>
     </Modal>

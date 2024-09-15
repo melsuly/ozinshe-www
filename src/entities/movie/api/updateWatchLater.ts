@@ -3,14 +3,14 @@ import { Identifier } from "@/shared/model"
 
 export async function updateWatchLater({
   movieId,
-  isWatchLater,
+  isCreate,
 }: {
   movieId: Identifier
-  isWatchLater: boolean
+  isCreate: boolean
 }) {
-  const queryParams = new URLSearchParams()
-  queryParams.append("movieId", movieId.toString())
-  return httpClient.post(
-    `/watchlist/${isWatchLater ? "add" : "remove"}?${queryParams.toString()}`,
-  )
+  if (isCreate) {
+    return httpClient.post(`/watchlist/${movieId}`)
+  } else {
+    return httpClient.delete(`/watchlist/${movieId}`)
+  }
 }

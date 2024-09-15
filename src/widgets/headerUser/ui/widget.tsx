@@ -27,7 +27,7 @@ export function HeaderUser() {
       <Popover position="bottom-end">
         <Popover.Target>
           <Group component={UnstyledButton}>
-            <Avatar src={userInfo?.avatarUrl} size={40} />
+            <Avatar color={"white"} size={60} />
           </Group>
         </Popover.Target>
         <Popover.Dropdown

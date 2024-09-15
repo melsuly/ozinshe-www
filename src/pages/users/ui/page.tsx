@@ -20,7 +20,11 @@ export function UsersPage() {
               Пользователи
             </Title>
 
-            <Button onClick={createModal.open} size="md" color="green">
+            <Button
+              onClick={createModal.open}
+              size="md"
+              color="var(--mantine-color-dark-6)"
+            >
               Добавить
             </Button>
           </Group>

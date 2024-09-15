@@ -30,11 +30,16 @@ export function HomePage() {
   const [genre, setGenre] = useState<string>("all")
   const [sortingType, setSortingType] = useState<string>("id")
 
+  const watchedMoviesCount = useMovies({
+    isWatched: true,
+  })
+  const allMoviesCount = useMovies({})
+
   const genres = useGenres()
   const movies = useMovies({
     isWatched: activeTab === "watched",
     genreIds: genre !== "all" ? [+genre] : [],
-    // sort: sortingType,
+    sort: sortingType,
   })
   const watchLater = useWatchLater()
 
@@ -49,10 +54,13 @@ export function HomePage() {
           )}
 
         {(watchLater.data || []).length > 0 && (
-          <Stack mt={32}>
-            <Title size="h2">Буду смотреть</Title>
+          <Stack mt={32} p={20}
+          style={{
+            backgroundColor: "black"
+          }}>
+            <Title size="h2" c={"white"}>Буду смотреть</Title>
 
-            <ScrollArea offsetScrollbars>
+            <ScrollArea scrollbars={"x"}>
               <Group gap={16} wrap="nowrap">
                 {watchLater.data?.map((movie) => (
                   <MovieWatchLaterCard key={movie.id} movie={movie} />
@@ -72,7 +80,7 @@ export function HomePage() {
             >
               <Title size="h3">Просмотренные</Title>
               <Text size="sm">
-                {`1 ${pluralize(1, ["фильм", "фильма", "фильмов"])}`}
+                {`${watchedMoviesCount.data?.length ?? 0} ${pluralize(watchedMoviesCount.data?.length ?? 0, ["фильм", "фильма", "фильмов"])}`}
               </Text>
             </Stack>
             <Stack
@@ -83,7 +91,7 @@ export function HomePage() {
             >
               <Title size="h3">Все</Title>
               <Text size="sm">
-                {`23 ${pluralize(23, ["фильм", "фильма", "фильмов"])}`}
+                {`${allMoviesCount.data?.length ?? 0} ${pluralize(allMoviesCount.data?.length ?? 0, ["фильм", "фильма", "фильмов"])}`}
               </Text>
             </Stack>
           </Group>
@@ -117,15 +125,15 @@ export function HomePage() {
                   label: "По порядку",
                 },
                 {
-                  value: "by_rating",
+                  value: "rating",
                   label: "По рейтингу",
                 },
                 {
-                  value: "by_date",
+                  value: "date_of_release",
                   label: "По дате выхода",
                 },
                 {
-                  value: "by_name",
+                  value: "title",
                   label: "По названию",
                 },
               ]}
@@ -134,7 +142,7 @@ export function HomePage() {
               onClick={createModal.open}
               radius="md"
               size="md"
-              color="green"
+              color="var(--mantine-color-dark-6)"
             >
               Добавить
             </Button>

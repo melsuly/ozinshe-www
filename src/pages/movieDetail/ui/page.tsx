@@ -118,7 +118,7 @@ export function MovieDetailPage() {
               onClick={() =>
                 updateWatchLater.mutate({
                   movieId: movieDetail.data.id,
-                  isWatchLater: !movieDetail.data.isWatched,
+                  isCreate: true
                 })
               }
               leftSection={

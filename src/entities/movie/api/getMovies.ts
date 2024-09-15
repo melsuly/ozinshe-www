@@ -5,14 +5,14 @@ import { mapMovies } from "../lib/mapMovie"
 
 export async function getMovies({
   genreIds = [],
-  isWatched = false,
+  isWatched,
   searchTerm,
   sort,
 }: MovieFilters) {
   const queryParams = new URLSearchParams()
-  queryParams.append("isWatched", isWatched.toString())
-  if (genreIds.length > 0) queryParams.append("genreIds", genreIds.join(","))
-  if (searchTerm) queryParams.append("searchTerm", searchTerm)
+  if (isWatched) queryParams.append("iswatched", isWatched.toString())
+  genreIds?.forEach((id) => queryParams.append("genreids", String(id)));
+  if (searchTerm) queryParams.append("search", searchTerm)
   if (sort) queryParams.append("sort", sort)
   return httpClient
     .get<MovieDto[]>(`/movies?${queryParams.toString()}`)

@@ -9,6 +9,6 @@ export async function createMovie(data: CreateMovie) {
   formData.append("director", data.director)
   formData.append("trailerUrl", data.trailerUrl)
   formData.append("poster", data.poster)
-  formData.append("genreIds", data.genreIds.join(","))
+  data.genreIds.forEach((id) => formData.append("genreIds", String(id)))
   return httpClient.post("/movies", formData)
 }

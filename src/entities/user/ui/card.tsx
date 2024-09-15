@@ -1,6 +1,6 @@
 import { ActionIcon, Avatar, Group, Stack, Text, Title } from "@mantine/core"
 import { User } from "../model/user"
-import { useDisclosure } from "@mantine/hooks"
+import { useDisclosure, useHover } from "@mantine/hooks"
 import { ConfirmDeleteModal } from "@/widgets/confirmDeleteModal/ui/widget"
 import { useDeleteUser } from "../lib/useDeleteUser"
 import { UserDrawer } from "@/widgets/userDrawer"
@@ -8,18 +8,23 @@ import { UserDrawer } from "@/widgets/userDrawer"
 export function UserCard({ user }: { user: User }) {
   const [isEditModalOpened, editModal] = useDisclosure()
   const [isDeleteModalOpened, deleteModal] = useDisclosure()
+  const {ref, hovered} = useHover()
 
   const deleteUser = useDeleteUser()
 
   return (
     <>
-      <Group p="lg" justify="space-between">
+      <Group
+        p="lg"
+        justify="space-between"
+        ref={ref}
+        style={{
+          borderRadius: "10px",
+          backgroundColor: hovered ? "var(--mantine-color-gray-0)" : "white",
+        }}
+      >
         <Group>
-          <Avatar
-            src={`https://i.pravatar.cc/200?u=${user.email}`}
-            h="60px"
-            w="60px"
-          />
+          <Avatar h="60px" w="60px" />
 
           <Stack gap={4}>
             <Title size="h4">{user.name}</Title>
@@ -32,18 +37,21 @@ export function UserCard({ user }: { user: User }) {
         <Group>
           <ActionIcon
             onClick={editModal.open}
-            color="gray"
             w="40"
             h="40"
             radius="xl"
+            style={{
+              backgroundColor: "var(--mantine-color-gray-1)",
+              color: "var(--mantine-color-dark-9)",
+            }}
           >
             <svg
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              width="24"
-              height="24"
+              width="20"
+              height="20"
             >
               <path
                 strokeLinecap="round"
@@ -55,18 +63,21 @@ export function UserCard({ user }: { user: User }) {
 
           <ActionIcon
             onClick={deleteModal.open}
-            color="red"
             w="40"
             h="40"
             radius="xl"
+            style={{
+              backgroundColor: "var(--mantine-color-gray-1)",
+              color: "var(--mantine-color-dark-9)",
+            }}
           >
             <svg
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              width="24"
-              height="24"
+              width="20"
+              height="20"
             >
               <path
                 strokeLinecap="round"

@@ -27,14 +27,23 @@ export function MovieWatchLaterCard({ movie }: { movie: Movie }) {
         ref={ref}
         pos="relative"
         h={130}
-        style={{ aspectRatio: "16/9" }}
+        style={{
+          height: "100px",
+          width: "150px",
+          overflow: "hidden",
+        }}
         p={0}
       >
         <Image
           src={imageUrl(movie.posterUrl)}
           alt={movie.title}
-          fit="cover"
-          style={{ pointerEvents: "none" }}
+          style={{
+            height: "100%",
+            width: "100%",
+            pointerEvents: "none",
+            objectFit:"cover",
+            objectPosition: "center",
+          }}
         />
 
         <ActionIcon
@@ -50,7 +59,7 @@ export function MovieWatchLaterCard({ movie }: { movie: Movie }) {
           radius="xl"
           color="orange"
           onClick={() =>
-            updateWatchLater.mutate({ movieId: movie.id, isWatchLater: false })
+            updateWatchLater.mutate({ movieId: movie.id, isCreate: false })
           }
         >
           <svg
@@ -70,7 +79,7 @@ export function MovieWatchLaterCard({ movie }: { movie: Movie }) {
         </ActionIcon>
       </Container>
 
-      <Text size="md" fw={500}>
+      <Text size="md" fw={500} c={"white"}>
         {movie.title}
       </Text>
     </Stack>

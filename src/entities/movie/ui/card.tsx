@@ -15,16 +15,19 @@ import { useUpdateWatchLater } from "../lib/useUpdateWatchLater"
 import { useEffect, useState } from "react"
 import { useUpdateMovieRate } from "../lib/useUpdateMovieRate"
 import { imageUrl } from "@/shared/api"
-import { useDisclosure } from "@mantine/hooks"
+import { useDisclosure, useHover } from "@mantine/hooks"
 import { MovieDrawer } from "@/widgets/movieDrawer"
 import { ConfirmDeleteModal } from "@/widgets/confirmDeleteModal/ui/widget"
 import { useDeleteMovie } from "../lib/useDeleteMovie"
+import { useSetWatched } from "../lib/useSetWatched"
 
 export function MovieCard({ movie }: { movie: Movie }) {
   const updateWatchLater = useUpdateWatchLater()
   const updateMovieRate = useUpdateMovieRate()
   const deleteMovie = useDeleteMovie()
+  const setWatched = useSetWatched()
   const [rate, setRate] = useState<number>(0)
+  const { ref, hovered } = useHover()
 
   const [isEditDrawerOpened, editDrawer] = useDisclosure()
   const [isDeleteModalOpened, deleteModal] = useDisclosure()
@@ -40,9 +43,20 @@ export function MovieCard({ movie }: { movie: Movie }) {
 
   return (
     <>
-      <Group gap={24} wrap="nowrap" align="flex-start">
+      <Group
+        gap={24}
+        wrap="nowrap"
+        align="flex-start"
+        ref={ref}
+        style={{
+          padding: "2em",
+          borderRadius: "10px",
+          backgroundColor: hovered ? "var(--mantine-color-gray-0)" : "white",
+          transition: "background-color .2s ease-in-out",
+        }}
+      >
         <Image
-          w={150}
+          w={100}
           src={imageUrl(movie.posterUrl)}
           alt="Movie"
           style={{
@@ -112,83 +126,81 @@ export function MovieCard({ movie }: { movie: Movie }) {
 
         <Stack h="100%">
           <Group gap={8}>
-            <ActionIcon
-              onClick={editDrawer.open}
-              size={40}
-              radius={20}
+            <Button
+              component="button"
+              leftSection={
+                <svg
+                  fill={"none"}
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  width={18}
+                  height={18}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
+                  />
+                </svg>
+              }
               style={{
-                backgroundColor: "var(--mantine-color-gray-3)",
-                color: "var(--mantine-color-dark-5)",
-              }}
-            >
-              <svg
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                width={20}
-                height={20}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                />
-              </svg>
-            </ActionIcon>
-            <ActionIcon
-              onClick={deleteModal.open}
-              size={40}
-              radius={20}
-              style={{
-                backgroundColor: "var(--mantine-color-red-6)",
-                color: "var(--mantine-color-white)",
-              }}
-            >
-              <svg
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                width={20}
-                height={20}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                />
-              </svg>
-            </ActionIcon>
-
-            <ActionIcon
-              size={40}
-              radius={20}
-              style={{
-                backgroundColor: "var(--mantine-color-gray-3)",
-                color: "var(--mantine-color-dark-5)",
+                height: "32px",
+                backgroundColor: "var(--mantine-color-gray-1)",
+                color: "var(--mantine-color-dark-9)",
               }}
               onClick={() =>
                 updateWatchLater.mutate({
                   movieId: movie.id,
-                  isWatchLater: !movie.isWatched,
+                  isCreate: true
                 })
               }
+              radius="xl"
+              size="sm"
             >
-              <svg
-                fill={movie.isWatched ? "currentColor" : "none"}
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                width={20}
-                height={20}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
-                />
-              </svg>
+              Буду смотреть
+            </Button>
+            <ActionIcon
+              onClick={() =>
+                setWatched.mutate({
+                  movieId: movie.id,
+                  isWatched: !movie.isWatched,
+                })
+              }
+              size={32}
+              radius={16}
+              style={{
+                backgroundColor: "var(--mantine-color-gray-1)",
+                color: "var(--mantine-color-dark-5)",
+              }}
+            >
+              {movie.isWatched ? (
+                <svg
+                  width="24"
+                  height="24"
+                  fill="#f50"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M23.25 12S18.213 19 12 19 .75 12 .75 12 5.787 5 12 5s11.25 7 11.25 7Zm-7.75 0a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  width="24"
+                  height="24"
+                  fill="rgba(0, 0, 0, 0.4)"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M18.33 13.985c.757-.698 1.4-1.4 1.891-1.985a21.948 21.948 0 0 0-1.892-1.985C16.422 8.26 14.182 6.9 12 6.9c-2.182 0-4.422 1.36-6.33 3.115-.757.698-1.4 1.4-1.891 1.985a21.94 21.94 0 0 0 1.892 1.985C7.578 15.74 9.818 17.1 12 17.1c2.182 0 4.422-1.36 6.33-3.115ZM12 4.5C5.787 4.5.75 12 .75 12S5.787 19.5 12 19.5 23.25 12 23.25 12 18.213 4.5 12 4.5Zm9.26 6.159ZM15 11.999a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+              )}
             </ActionIcon>
             <Popover
               offset={{ crossAxis: 10, mainAxis: 5 }}
@@ -196,12 +208,12 @@ export function MovieCard({ movie }: { movie: Movie }) {
             >
               <Popover.Target>
                 <ActionIcon
-                  size={40}
+                  size={32}
                   radius={20}
                   style={{
                     backgroundColor:
                       rate === 0
-                        ? "var(--mantine-color-gray-3)"
+                        ? "var(--mantine-color-gray-0)"
                         : rate === 4 || rate === 5
                           ? "var(--mantine-color-green-3)"
                           : "var(--mantine-color-red-3)",
@@ -218,8 +230,8 @@ export function MovieCard({ movie }: { movie: Movie }) {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      width={20}
-                      height={20}
+                      width={18}
+                      height={18}
                     >
                       <path
                         strokeLinecap="round"
@@ -230,11 +242,63 @@ export function MovieCard({ movie }: { movie: Movie }) {
                   )}
                 </ActionIcon>
               </Popover.Target>
-
               <Popover.Dropdown>
-                <Rating value={rate} onChange={handleUpdateRate} size="xl" />
+                <Rating value={rate} onChange={handleUpdateRate} size="lg" />
               </Popover.Dropdown>
             </Popover>
+          </Group>
+        </Stack>
+
+        <Stack h="100%">
+          <Group gap={8}>
+            <ActionIcon
+              onClick={editDrawer.open}
+              size={32}
+              radius={16}
+              style={{
+                backgroundColor: "var(--mantine-color-gray-1)",
+                color: "var(--mantine-color-dark-5)",
+              }}
+            >
+              <svg
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                width={18}
+                height={18}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                />
+              </svg>
+            </ActionIcon>
+            <ActionIcon
+              onClick={deleteModal.open}
+              size={32}
+              radius={20}
+              style={{
+                backgroundColor: "var(--mantine-color-gray-1)",
+                color: "var(--mantine-color-dark-5)",
+              }}
+            >
+              <svg
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                width={18}
+                height={18}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                />
+              </svg>
+            </ActionIcon>
           </Group>
         </Stack>
       </Group>

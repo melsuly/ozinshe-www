@@ -1,4 +1,5 @@
 import { ActionIcon, Group, Image, Title } from "@mantine/core"
+import {useHover} from "@mantine/hooks"
 
 export function GenreCard({
   title,
@@ -9,8 +10,19 @@ export function GenreCard({
   onEdit: () => void
   onDelete: () => void
 }) {
+  const {ref, hovered} = useHover()
+
+
   return (
-    <Group p="lg" justify="space-between">
+    <Group
+      p="lg"
+      justify="space-between"
+      ref={ref}
+      style={{
+        borderRadius: "10px",
+        backgroundColor: hovered ? "var(--mantine-color-gray-0)" : "white",
+      }}
+    >
       <Group>
         <Image
           src={`https://picsum.photos/seed/${title}/150`}
@@ -22,14 +34,23 @@ export function GenreCard({
       </Group>
 
       <Group>
-        <ActionIcon onClick={onEdit} color="gray" w="40" h="40" radius="xl">
+        <ActionIcon
+          onClick={onEdit}
+          w="40"
+          h="40"
+          radius="xl"
+          style={{
+            backgroundColor: "var(--mantine-color-gray-1)",
+            color: "var(--mantine-color-dark-9)",
+          }}
+        >
           <svg
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
           >
             <path
               strokeLinecap="round"
@@ -39,14 +60,23 @@ export function GenreCard({
           </svg>
         </ActionIcon>
 
-        <ActionIcon onClick={onDelete} color="red" w="40" h="40" radius="xl">
+        <ActionIcon
+          onClick={onDelete}
+          w="40"
+          h="40"
+          radius="xl"
+          style={{
+            backgroundColor: "var(--mantine-color-gray-1)",
+            color: "var(--mantine-color-dark-9)",
+          }}
+        >
           <svg
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
           >
             <path
               strokeLinecap="round"

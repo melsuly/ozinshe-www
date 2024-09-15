@@ -9,6 +9,6 @@ export async function updateMovie({ id, ...data }: UpdateMovie) {
   if (data.director) formData.append("director", data.director)
   if (data.trailerUrl) formData.append("trailerUrl", data.trailerUrl)
   if (data.poster) formData.append("poster", data.poster)
-  if (data.genreIds) formData.append("genreIds", data.genreIds.join(","))
+  data.genreIds?.forEach((id) => formData.append("genreIds", String(id)))
   return httpClient.put(`/movies/${id}`, formData)
 }

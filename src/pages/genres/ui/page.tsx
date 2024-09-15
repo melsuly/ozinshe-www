@@ -26,7 +26,11 @@ export function GenresPage() {
               Жанры
             </Title>
 
-            <Button onClick={modal.open} color="green" size="md">
+            <Button
+              onClick={modal.open}
+              color="var(--mantine-color-dark-6)"
+              size="md"
+            >
               Добавить
             </Button>
           </Group>

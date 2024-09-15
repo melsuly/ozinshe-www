@@ -90,21 +90,21 @@ export function GenreModal({
 
       <Group grow mt={32}>
         <Button
+          loading={isLoading}
+          color="var(--mantine-color-primarycolor)"
+          size="md"
+          onClick={handleSubmit}
+        >
+          {genre ? "Сохранить" : "Добавить"}
+        </Button>
+        <Button
           disabled={isLoading}
-          color="red"
+          color="var(--mantine-color-gray-9)"
           size="md"
           variant="outline"
           onClick={onClose}
         >
           Отменить
-        </Button>
-        <Button
-          loading={isLoading}
-          color="green"
-          size="md"
-          onClick={handleSubmit}
-        >
-          {genre ? "Сохранить" : "Добавить"}
         </Button>
       </Group>
     </Modal>

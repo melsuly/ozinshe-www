@@ -35,6 +35,9 @@ importers:
       mantine-form-zod-resolver:
         specifier: ^1.1.0
         version: 1.1.0(@mantine/form@7.12.1(react@18.3.1))(zod@3.23.8)
+      pnpm:
+        specifier: ^9.10.0
+        version: 9.10.0
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1273,6 +1276,11 @@ packages:
   picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
+
+  pnpm@9.10.0:
+    resolution: {integrity: sha512-c6Ka+jag0JLs5Scd5Rd+y/gxjUVOzXATQxMbjrwMGpHEh9pGq3fI5ZbWrPFGHjWUztS+zt+JIbB0+9hlPtcFHA==}
+    engines: {node: '>=18.12'}
+    hasBin: true
 
   possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
@@ -2910,6 +2918,8 @@ snapshots:
   picocolors@1.0.1: {}
 
   picomatch@2.3.1: {}
+
+  pnpm@9.10.0: {}
 
   possible-typed-array-names@1.0.0: {}
 
