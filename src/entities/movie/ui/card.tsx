@@ -88,7 +88,7 @@ export function MovieCard({ movie }: { movie: Movie }) {
                 color: "var(--mantine-color-gray-6)",
               }}
             >
-              Режиссер: ${movie.director}
+              Режиссер: {movie.director}
             </Text>
           </Stack>
 

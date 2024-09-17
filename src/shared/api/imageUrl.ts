@@ -1,5 +1,5 @@
 import { config } from "../lib"
 
 export function imageUrl(path: string) {
-  return `${config.apiUrl}/${path}`
+  return `${config.apiUrl}/images/${path}`
 }
