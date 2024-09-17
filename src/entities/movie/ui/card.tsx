@@ -20,6 +20,7 @@ import { MovieDrawer } from "@/widgets/movieDrawer"
 import { ConfirmDeleteModal } from "@/widgets/confirmDeleteModal/ui/widget"
 import { useDeleteMovie } from "../lib/useDeleteMovie"
 import { useSetWatched } from "../lib/useSetWatched"
+import dayjs from "dayjs"
 
 export function MovieCard({ movie }: { movie: Movie }) {
   const updateWatchLater = useUpdateWatchLater()
@@ -82,6 +83,13 @@ export function MovieCard({ movie }: { movie: Movie }) {
               }}
             >
               {movie.description}
+            </Text>
+            <Text
+              style={{
+                color: "var(--mantine-color-gray-6)",
+              }}
+            >
+              Год производства: {dayjs(movie.dateOfRelease).format("YYYY")}
             </Text>
             <Text
               style={{
