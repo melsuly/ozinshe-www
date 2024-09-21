@@ -50,7 +50,7 @@ export function HomePage() {
       <Container>
         {watchLater.error &&
           responseError(watchLater.error).isNotImplemented && (
-            <NotReleased description="Ожидали получить список фильмов, но произошла ошибка" />
+            <NotReleased description="Ожидали получить очередь просмотра, но произошла ошибка" />
           )}
 
         {(watchLater.data || []).length > 0 && (

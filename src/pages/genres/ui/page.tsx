@@ -35,12 +35,11 @@ export function GenresPage() {
             </Button>
           </Group>
 
-          <Stack>
-            {deleteGenre.error &&
-              responseError(deleteGenre.error).isNotImplemented && (
-                <NotReleased description="Ожидали получить список жанров, но произошла ошибка" />
-              )}
+          {genres.error && responseError(genres.error).isNotImplemented && (
+              <NotReleased description="Ожидали получить список жанров, но произошла ошибка" />
+            )}
 
+          <Stack>
             {genres.data?.map((genre) => (
               <GenreCard
                 key={genre.id}

@@ -137,7 +137,7 @@ export function MovieDrawer({
         .then((movie) => {
           setTitle(movie.title)
           setDescription(movie.description)
-          setReleaseDate(movie.dateOfRelease)
+          setReleaseDate(dayjs(movie.dateOfRelease).format("YYYY"))
           setDirector(movie.director)
           setTrailer(movie.trailerUrl)
           setSelectedGenres(movie.genres.map((genre) => genre.id.toString()))
@@ -156,8 +156,9 @@ export function MovieDrawer({
     >
       <Stack gap={56}>
         <Stack>
-          <Title size="h3">Добавление фильма</Title>
-
+          <Title size="h3">
+            {id ? "Редактирование фильма" : "Добавление фильма"}
+          </Title>
           <Stack>
             <TextInput
               value={title}

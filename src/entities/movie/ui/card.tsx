@@ -221,7 +221,7 @@ export function MovieCard({ movie }: { movie: Movie }) {
                   style={{
                     backgroundColor:
                       rate === 0
-                        ? "var(--mantine-color-gray-0)"
+                        ? "var(--mantine-color-gray-1)"
                         : rate === 4 || rate === 5
                           ? "var(--mantine-color-green-3)"
                           : "var(--mantine-color-red-3)",
