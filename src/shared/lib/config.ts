@@ -4,6 +4,7 @@ const env = z
   .object({
     VITE_API_URL: z.string(),
     VITE_FEATURE_AUTH: z.string().transform((value) => value === "true"),
+    VITE_SIMPLIFIED_MOVIE: z.string().transform((value) => value === "true"),
   })
   .parse(import.meta.env)
 
@@ -12,5 +13,6 @@ export const config = {
   tokenStorageKey: "token",
   features: {
     authorization: env.VITE_FEATURE_AUTH,
+    simplifiedMovie: env.VITE_SIMPLIFIED_MOVIE
   },
 }

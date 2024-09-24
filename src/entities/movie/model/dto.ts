@@ -2,7 +2,7 @@ export type MovieDto = {
   Id: number
   Title: string
   Description: string
-  DateOfRelease: string
+  ReleaseYear: number
   Director: string
   Rating: number
   TrailerUrl: string
@@ -18,7 +18,7 @@ export type MovieDetailDTO = {
   Id: number
   Title: string
   Description: string
-  DateOfRelease: string
+  ReleaseYear: number
   Director: string
   Rating: number
   TrailerUrl: string

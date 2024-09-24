@@ -4,8 +4,8 @@ export type CreateMovie = {
   title: string
   description: string
   trailerUrl: string
-  poster: File
-  dateOfRelease: string
+  poster: File | null
+  releaseYear: number
   director: string
   genreIds: Identifier[]
 }

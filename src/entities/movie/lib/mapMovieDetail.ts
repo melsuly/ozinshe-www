@@ -9,7 +9,7 @@ export function mapMovieDetail(dto: MovieDetailDTO): MovieDetail {
     trailerUrl: dto.TrailerUrl,
     posterUrl: dto.PosterUrl,
     isWatched: dto.IsWatched,
-    dateOfRelease: dto.DateOfRelease,
+    releaseYear: dto.ReleaseYear,
     director: dto.Director,
     rating: dto.Rating,
     genres: dto.Genres.map((genre) => ({

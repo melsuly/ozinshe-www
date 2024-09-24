@@ -89,7 +89,7 @@ export function MovieCard({ movie }: { movie: Movie }) {
                 color: "var(--mantine-color-gray-6)",
               }}
             >
-              Год производства: {dayjs(movie.dateOfRelease).format("YYYY")}
+              Год производства: {movie.releaseYear}
             </Text>
             <Text
               style={{

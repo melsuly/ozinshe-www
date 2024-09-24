@@ -16,6 +16,7 @@ import { toast } from "sonner"
 import dayjs from "dayjs"
 import { responseError } from "@/shared/api"
 import { Identifier } from "@/shared/model"
+import { config } from "@/shared/lib"
 
 export function MovieDrawer({
   opened,
@@ -28,7 +29,7 @@ export function MovieDrawer({
 }) {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-  const [releaseDate, setReleaseDate] = useState<string>("")
+  const [releaseYear, setReleaseYear] = useState("")
   const [director, setDirector] = useState("")
   const [trailer, setTrailer] = useState("")
   const [selectedGenres, setSelectedGenres] = useState<string[]>([])
@@ -49,8 +50,8 @@ export function MovieDrawer({
       return
     }
 
-    if (!releaseDate) {
-      toast.error("Введите дату выхода")
+    if (!releaseYear) {
+      toast.error("Введите год производства")
       return
     }
 
@@ -64,8 +65,13 @@ export function MovieDrawer({
       return
     }
 
-    if (selectedGenres.length === 0) {
+    if (!config.features.simplifiedMovie && selectedGenres.length === 0) {
       toast.error("Выберите хотя бы один жанр")
+      return
+    }
+
+    if (!config.features.simplifiedMovie && !poster) {
+      toast.error("Выберите постер")
       return
     }
 
@@ -75,11 +81,11 @@ export function MovieDrawer({
           id,
           title,
           description,
-          dateOfRelease: dayjs(releaseDate).format("YYYY-MM-DD"),
+          releaseYear: Number(releaseYear),
           director,
           genreIds: selectedGenres.map((id) => +id),
           trailerUrl: trailer,
-          poster: poster || undefined,
+          poster: poster,
         }),
         {
           loading: "Сохранение...",
@@ -93,20 +99,15 @@ export function MovieDrawer({
       return
     }
 
-    if (!poster) {
-      toast.error("Выберите постер")
-      return
-    }
-
     toast.promise(
       createMovie.mutateAsync({
         title,
         description,
-        dateOfRelease: dayjs(releaseDate).format("YYYY-MM-DD"),
+        releaseYear: Number(releaseYear),
         director,
         genreIds: selectedGenres.map((id) => +id),
         trailerUrl: trailer,
-        poster,
+        poster: poster,
       }),
       {
         loading: "Сохранение...",
@@ -123,7 +124,7 @@ export function MovieDrawer({
     if (!opened) {
       setTitle("")
       setDescription("")
-      setReleaseDate("")
+      setReleaseYear("")
       setDirector("")
       setTrailer("")
       setSelectedGenres([])
@@ -137,7 +138,7 @@ export function MovieDrawer({
         .then((movie) => {
           setTitle(movie.title)
           setDescription(movie.description)
-          setReleaseDate(dayjs(movie.dateOfRelease).format("YYYY"))
+          setReleaseYear(movie.releaseYear.toString())
           setDirector(movie.director)
           setTrailer(movie.trailerUrl)
           setSelectedGenres(movie.genres.map((genre) => genre.id.toString()))
@@ -176,8 +177,8 @@ export function MovieDrawer({
             <TextInput
               type="number"
               maxLength={4}
-              value={releaseDate}
-              onChange={(e) => setReleaseDate(e.currentTarget.value)}
+              value={releaseYear}
+              onChange={(e) => setReleaseYear(e.currentTarget.value)}
               label="Год производства"
               placeholder="Выберите год производства"
             />

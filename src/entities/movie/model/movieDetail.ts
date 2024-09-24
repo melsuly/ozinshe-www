@@ -7,7 +7,7 @@ export type MovieDetail = {
   trailerUrl: string
   posterUrl: string
   isWatched: boolean
-  dateOfRelease: string
+  releaseYear: number
   director: string
   rating: number
   genres: {

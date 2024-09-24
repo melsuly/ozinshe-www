@@ -61,7 +61,7 @@ export function MovieDetailPage() {
             <Table.Tr>
               <Table.Td c="gray">Год производства</Table.Td>
               <Table.Td>
-                {dayjs(movieDetail.data.dateOfRelease).format("YYYY")}
+                {movieDetail.data.releaseYear}
               </Table.Td>
             </Table.Tr>
             <Table.Tr>
