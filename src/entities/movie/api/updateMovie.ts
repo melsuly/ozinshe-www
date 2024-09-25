@@ -17,8 +17,8 @@ function buildSimplifiedMovieBody(data: UpdateMovie) {
     releaseYear: data.releaseYear,
     director: data.director,
     trailerUrl: data.trailerUrl,
-    poster: "", // специально оставляем пустымии
-    genreIds: [], // специально оставляем пустыми
+    genreIds: data.genreIds,
+    poster: "", // специально оставляем пустым
   }
 }
 
