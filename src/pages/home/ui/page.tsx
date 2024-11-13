@@ -129,7 +129,7 @@ export function HomePage() {
                   label: "По рейтингу",
                 },
                 {
-                  value: "date_of_release",
+                  value: "release_year",
                   label: "По дате выхода",
                 },
                 {
