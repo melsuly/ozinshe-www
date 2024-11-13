@@ -113,7 +113,6 @@ export function UserDrawer({
         updatePassword.mutateAsync({
           id,
           newPassword: password,
-          confirmPassword: passwordConfirm,
         }),
         {
           loading: "Смена пароля...",
